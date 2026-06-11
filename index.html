@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>World Cup 2026 | Live Stream</title>
+    
+    <!-- External Scripts & Fonts -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
+    
+    <!-- Link to your external stylesheet -->
+    <link rel="stylesheet" href="style.css">
+
+    <!-- ANTI-THEFT PROTECTION SCRIPT -->
+    <script>
+        document.addEventListener('contextmenu', event => event.preventDefault()); // Disable Right Click
+        document.onkeydown = function(e) {
+            if (e.keyCode == 123) { return false; } // Block F12
+            if (e.ctrlKey && e.shiftKey && e.keyCode == 'I'.charCodeAt(0)) { return false; } // Block Ctrl+Shift+I
+            if (e.ctrlKey && e.shiftKey && e.keyCode == 'C'.charCodeAt(0)) { return false; } // Block Ctrl+Shift+C
+            if (e.ctrlKey && e.shiftKey && e.keyCode == 'J'.charCodeAt(0)) { return false; } // Block Ctrl+Shift+J
+            if (e.ctrlKey && e.keyCode == 'U'.charCodeAt(0)) { return false; } // Block Ctrl+U
+        }
+    </script>
+</head>
+<body>
+    <div class="animated-bg"></div>
+    <div class="panel">
+        
+        <!-- Navigation -->
+        <div class="bottom-nav">
+            <div class="nav-item active" onclick="switchTab('tab-home', this)">
+                <span class="nav-icon">⚽</span><span>Watch Live</span>
+            </div>
+            <div class="nav-item" onclick="switchTab('tab-schedule', this)">
+                <span class="nav-icon">📅</span><span>Schedule</span>
+            </div>
+            <div class="nav-item" onclick="switchTab('tab-chat', this)">
+                <span class="nav-icon">💬</span><span>Live Chat</span>
+            </div>
+            <div class="nav-item" onclick="switchTab('tab-profile', this)">
+                <span class="nav-icon">👤</span><span>Profile</span>
+            </div>
+        </div>
+
+        <div class="content-area">
+            
+            <!-- Global Loader -->
+            <div id="global-loader" class="absolute inset-0 z-[100] bg-theme-panel/90 backdrop-blur flex flex-col items-center justify-center hidden">
+                <div class="w-10 h-10 border-4 border-theme border-t-[#10b981] rounded-full animate-spin mb-3"></div>
+                <span class="text-[10px] font-bold text-theme-muted uppercase tracking-widest">Syncing Data...</span>
+            </div>
+            
+            <!-- TAB 1: HOME (Streaming Hub) -->
+            <div id="tab-home" class="tab-content active">
+                <div id="screen-landing" class="screen active" style="padding:0;">
+                    <div class="desktop-container">
+                        <div class="border-b border-theme pb-4 mb-5 flex justify-between items-center">
+                            <span class="text-lg font-bold text-theme-main flex items-center gap-2">
+                                <span class="w-2 h-2 rounded-full bg-red-500 animate-pulse"></span>
+                                WWC 2026 Live
+                            </span>
+                            <span class="text-xs bg-[#10b981]/20 text-[#10b981] px-2 py-1 rounded font-bold border border-[#10b981]/30">4K HDR</span>
+                        </div>
+                        
+                        <!-- Watch Thumbnail -->
+                        <div class="relative w-full h-48 md:h-64 rounded-lg overflow-hidden border border-theme mb-5 group cursor-pointer" onclick="startUnlockSequence()">
+                            <img src="https://images.unsplash.com/photo-1579952363873-27f3bade9f55?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" class="w-full h-full object-cover opacity-80 group-hover:scale-105 transition duration-500">
+                            
+                            <div class="absolute inset-0 bg-black/80 flex-col items-center justify-center hidden z-20" id="video-buffering">
+                                <div class="w-12 h-12 border-4 border-gray-600 border-t-[#10b981] rounded-full animate-spin mb-2"></div>
+                                <span class="text-xs font-bold text-[#10b981] animate-pulse">Buffering Stream...</span>
+                            </div>
+
+                            <div class="absolute inset-0 bg-black/40 flex items-center justify-center z-10" id="video-ui">
+                                <div class="w-16 h-16 bg-[#10b981] rounded-full flex items-center justify-center pl-1 shadow-[0_0_20px_rgba(16,185,129,0.5)] group-hover:scale-110 transition duration-300">
+                                    <svg class="w-8 h-8 text-black" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Stats -->
+                        <div class="flex justify-between items-center bg-theme-card rounded-lg p-3 mb-6 border border-theme">
+                            <div class="text-center w-1/3 border-r border-theme">
+                                <div class="text-xs text-theme-muted">Live Viewers</div>
+                                <div class="font-bold text-theme-main" id="live-viewer-count">1,492,041</div>
+                            </div>
+                            <div class="text-center w-1/3 border-r border-theme">
+                                <div class="text-xs text-theme-muted">Likes</div>
+                                <div class="font-bold text-theme-main">89K</div>
+                            </div>
+                            <div class="text-center w-1/3">
+                                <div class="text-xs text-theme-muted">Bitrate</div>
+                                <div class="font-bold text-[#10b981]">14.2 Mbps</div>
+                            </div>
+                        </div>
+
+                        <button onclick="startUnlockSequence()" class="btn-green">Enter Stream Now</button>
+                    </div>
+                </div>
+
+                <div id="screen-terminal" class="screen" style="padding:0;">
+                    <div class="desktop-container">
+                        <div class="border-b border-theme pb-4 mb-5">
+                            <h2 class="text-lg font-bold text-theme-main flex items-center gap-2">
+                                <span class="text-red-500">⚠️</span> Security Check
+                            </h2>
+                            <p class="text-sm text-theme-muted mt-1">Analyzing incoming connection...</p>
+                        </div>
+                        <div id="terminal-output" class="terminal-box"></div>
+                    </div>
+                </div>
+
+                <div id="screen-tasks" class="screen" style="padding:0;">
+                    <div class="desktop-container">
+                        <div class="border-b border-theme pb-4 mb-5 text-center">
+                            <span class="text-4xl mb-2 block">🛡️</span>
+                            <h2 class="text-lg font-bold text-theme-main">Verification Required</h2>
+                            <p class="text-xs text-theme-muted mt-2">To prevent bot spam, please complete <strong class="text-[#10b981]">ONE</strong> quick sponsor task below. Stream unlocks instantly.</p>
+                        </div>
+                        
+                        <div class="w-full bg-theme-panel h-2 rounded-full mb-5 overflow-hidden">
+                            <div id="progress-fill" class="bg-[#10b981] h-full rounded-full transition-all duration-1000 ease-out" style="width: 5%"></div>
+                        </div>
+                        
+                        <div id="offers-list" class="max-h-[400px] overflow-y-auto pr-1"></div>
+                        
+                        <div id="loading-offers" class="flex flex-col items-center py-10 hidden">
+                            <div class="w-6 h-6 border-2 border-theme border-t-[#10b981] rounded-full animate-spin mb-3"></div>
+                            <span class="text-xs font-bold text-theme-muted">Fetching localized tasks...</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TAB 2: SCHEDULE (Injected by JS) -->
+            <div id="tab-schedule" class="tab-content">
+                <div class="desktop-container">
+                    <h2 class="text-lg font-bold text-theme-main border-b border-theme pb-4 mb-5">Upcoming Matches</h2>
+                    <div class="space-y-3" id="schedule-list">
+                        <!-- JS WILL AUTO-INJECT MATCHES HERE -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- TAB 3: CHAT -->
+            <div id="tab-chat" class="tab-content">
+                <div class="desktop-container flex flex-col h-full relative">
+                    <h2 class="text-lg font-bold text-theme-main border-b border-theme pb-4 mb-4 flex justify-between items-center">
+                        Global Chat
+                        <span class="text-[10px] bg-red-500/20 text-red-500 px-2 py-1 rounded-full flex items-center gap-1 font-bold">
+                            <span class="w-1.5 h-1.5 bg-red-500 rounded-full animate-pulse"></span> <span id="chat-live-count">1.4M</span> Watching
+                        </span>
+                    </h2>
+                    
+                    <div id="chat-container" class="chat-container flex-1 mb-4"></div>
+
+                    <!-- Fade out mask for clean disappearing messages -->
+                    <div class="absolute top-[60px] left-0 w-full h-10 bg-gradient-to-b from-[var(--bg-panel)] to-transparent pointer-events-none z-10"></div>
+
+                    <div class="flex gap-2 relative z-20">
+                        <input type="text" id="chat-input" class="input-box !mb-0" placeholder="Send a message...">
+                        <button onclick="sendChatMessage()" class="bg-[#10b981] text-black px-4 rounded-lg font-bold hover:scale-105 transition">Send</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TAB 4: PROFILE & SETTINGS -->
+            <div id="tab-profile" class="tab-content">
+                <div class="desktop-container">
+                    <div id="profile-auth">
+                        <div class="text-center mb-6">
+                            <span class="text-5xl block mb-2">🏆</span>
+                            <h2 class="text-lg font-bold text-theme-main">Fan Zone Portal</h2>
+                            <p class="text-xs text-theme-muted mt-1">Sign in to save your stream settings.</p>
+                        </div>
+                        
+                        <div id="form-login">
+                            <input type="text" id="login-user" class="input-box" placeholder="Username">
+                            <input type="password" id="login-pass" class="input-box" placeholder="Password">
+                            <button onclick="handleLogin()" class="btn-green mb-4">Log In</button>
+                            <p class="text-xs text-center text-theme-muted">New fan? <span class="text-[#10b981] font-bold cursor-pointer" onclick="toggleAuthMode()">Create an account</span></p>
+                        </div>
+
+                        <div id="form-signup" class="hidden">
+                            <input type="text" id="sign-user" class="input-box" placeholder="Choose Username">
+                            <input type="password" id="sign-pass" class="input-box" placeholder="Choose Password">
+                            <button onclick="handleSignup()" class="btn-green mb-4">Sign Up</button>
+                            <p class="text-xs text-center text-theme-muted">Already joined? <span class="text-[#10b981] font-bold cursor-pointer" onclick="toggleAuthMode()">Log In</span></p>
+                        </div>
+                        
+                        <!-- Settings available even when logged out -->
+                        <div class="mt-8 border-t border-theme pt-6">
+                            <h3 class="text-xs font-bold text-theme-muted uppercase tracking-wider mb-3">App Settings</h3>
+                            <button onclick="toggleTheme()" class="btn-dark flex justify-between w-full">
+                                <span>Appearance</span> <span id="theme-label" class="text-[#10b981]">Dark Mode</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div id="profile-dashboard" class="hidden">
+                        <div class="flex items-center gap-4 border-b border-theme pb-6 mb-6">
+                            <div class="relative w-16 h-16">
+                                <img id="user-avatar" src="https://api.dicebear.com/7.x/avataaars/svg?seed=Fan" class="w-full h-full rounded-full border-2 border-[#10b981] object-cover bg-gray-800">
+                            </div>
+                            <div>
+                                <h2 id="user-display-name" class="text-lg font-bold text-theme-main">Username</h2>
+                                <p class="text-xs text-[#10b981] font-bold">Verified Viewer</p>
+                            </div>
+                        </div>
+
+                        <div class="space-y-3 mb-8">
+                            <button onclick="toggleTheme()" class="btn-dark flex justify-between w-full">
+                                <span>Appearance</span> <span id="theme-label-dash" class="text-[#10b981]">Dark Mode</span>
+                            </button>
+                            <button class="btn-dark cursor-not-allowed opacity-50 flex justify-between">
+                                <span>Favorite Team</span> <span class="text-gray-500">Select (Locked)</span>
+                            </button>
+                            <button class="btn-dark cursor-not-allowed opacity-50 flex justify-between">
+                                <span>Stream Quality</span> <span class="text-[#10b981]">Auto (4K)</span>
+                            </button>
+                        </div>
+
+                        <button onclick="handleLogout()" class="w-full bg-red-900/20 text-red-500 border border-red-900/50 p-3 rounded-lg font-bold text-sm transition hover:bg-red-900/40">Log Out</button>
+                    </div>
+                </div>
+            </div>
+
+        </div> <!-- End Content Area -->
+    </div> <!-- End Panel -->
+
+    <!-- Link to your external JS file -->
+    <script src="app.js"></script>
+</body>
+                                                </html>
+  
